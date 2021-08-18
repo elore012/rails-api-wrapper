@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Wrappers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wrappers.each do |wrapper| %>
+      <tr>
+        <td><%= link_to 'Show', wrapper %></td>
+        <td><%= link_to 'Edit', edit_wrapper_path(wrapper) %></td>
+        <td><%= link_to 'Destroy', wrapper, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wrapper', new_wrapper_path %>

@@ -1,0 +1,17 @@
+<%= form_with(model: wrapper) do |form| %>
+  <% if wrapper.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(wrapper.errors.count, "error") %> prohibited this wrapper from being saved:</h2>
+
+      <ul>
+        <% wrapper.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
