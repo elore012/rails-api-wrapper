@@ -1,4 +1,50 @@
-<p id="notice"><%= notice %></p>
+<div id="nutrient-show">
+  <%= form_tag(wrapper_path ,method: :get) do %>
 
-<%= link_to 'Edit', edit_wrapper_path(@wrapper) %> |
-<%= link_to 'Back', wrappers_path %>
+   <div class="nutrient-form">
+   <%= label_tag(:min, "Nutrient") %>
+   <br>
+   <%=text_field_tag(:min,params[:min],placeholder:"parameters" )%>
+   </div>
+<br>
+   <div class="nutrient-form">
+   <%= label_tag(:value1, "Amount") %>
+   <br>
+   <%=text_field_tag(:value1,params[:value1], placeholder: "value")%>
+   </div>
+    <br>
+   <div><%= submit_tag ("Search") %></div>
+   <br>
+   <div class="link"><button><%= link_to 'Search by menu items' , wrappers_path %></button></div>
+    
+    <%end%>
+    </div>
+
+    
+    <div id= "show-result">
+    <% if @error %>
+    <div class="error"><h3> Parameter entered is invalid and check if quota already exceed .
+    You can go to this link to view the available parameters for data <a href="https://spoonacular.com/food-api/docs#Search-Recipes-by-Nutrients"> Click here .</a> 
+    </h3></div>
+    <%else%>
+    <%(0...@search_by_nutrients.length).each do |id| %>
+        <div class = "each-title">
+        
+          <h3><%= @search_by_nutrients[id]['title']%></h3>
+          <img src = <%= @search_by_nutrients[id]['image'] %> alt="Image is not available :("</img>
+          <p> Calories : <%=@search_by_nutrients[id]['calories'] %>
+          <p> Fat :<%=@search_by_nutrients[id]['fat'] %>
+          <p> Protein :<%=@search_by_nutrients[id]['protein'] %>
+          <p> Carbs :<%=@search_by_nutrients[id]['carbs'] %>
+
+        
+          </div>
+          <%end%>
+          <%end%>
+          </div>
+  
+
+
+  
+  
+  

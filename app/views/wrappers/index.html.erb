@@ -1,25 +1,45 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Wrappers</h1>
+ <div id="search-bar">
+  <%= form_tag(wrappers_path ,method: :get) do %>
+    <%=text_field_tag(:item , params[:item] , :size=>"98%")%>
+    <%= submit_tag ("Search") %>
+    <%end%>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+   <div class="link"> <button><%=link_to 'Search by nutrients' , wrapper_path(1) %> </button></div>
 
-  <tbody>
-    <% @wrappers.each do |wrapper| %>
-      <tr>
-        <td><%= link_to 'Show', wrapper %></td>
-        <td><%= link_to 'Edit', edit_wrapper_path(wrapper) %></td>
-        <td><%= link_to 'Destroy', wrapper, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+<%if @error %>
+<div id="blank-search"><h1>Check HTTP code for error </h1></div>
+<%else%>
+  <% if@menu.present? %>
+     
+        
+                        <% if @menu['menuItems'].present? %>
+            <div id= "menu-title-list">
+                        <%(0...@menu['menuItems'].length).each do |id| %>
+                          <div class = "each-title">
+                              <h1> Order id <%= @menu['menuItems'][id]['id']%></h1>
+                              <h3> <%= @menu['menuItems'][id]['title']%></h2>
+                              <h3> <%= @menu['menuItems'][id]['restaurantChain']%></h3>
+                              <div id= "image"><img src = <%=@menu['menuItems'][id]['image'] %> alt="Image Unavailable" </img></div>
+                              <h3> <%= @menu['menuItems'][id]['servingSize']%></h3>
+                          </div>
+                          <%end%>
+                          <%else%>
+                          <div class="error"> <h2>Menu is not available . Try other menu :)</h2></div>
+                          <%end%>
+                
+                 
+          </div>
+  <%else%>
+  <div class ="error"><h2> Please enter any valid food in search bar </h2></div>
+  <%end%>
+<%end%>
 
-<%= link_to 'New Wrapper', new_wrapper_path %>
+
+
+
+
+
+   

@@ -1,13 +1,25 @@
 class WrappersController < ApplicationController
-  before_action :set_wrapper, only: %i[ show edit update destroy ]
+  before_action :initialize_client
+  
 
   # GET /wrappers or /wrappers.json
-  def index
-    @wrappers = Wrapper.all
+  def index 
+    
+  begin
+    @menu = @client.search_menu_items(params[:item])
+    rescue RuntimeError
+    @error = true
+    @response = response.status
+   end
   end
 
   # GET /wrappers/1 or /wrappers/1.json
   def show
+    begin
+    @search_by_nutrients = @client.search_by_nutrients(params[:min],params[:max],params[:value1],params[:value2 ])
+  rescue RuntimeError
+    @error = true
+   end
   end
 
   # GET /wrappers/new
@@ -65,5 +77,10 @@ class WrappersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def wrapper_params
       params.fetch(:wrapper, {})
+    end
+
+    def initialize_client
+      @client = Spoonacular::Client.new
+
     end
 end
